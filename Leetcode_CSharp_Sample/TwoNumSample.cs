@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Leetcode_CSharp_Sample
@@ -9,6 +10,13 @@ namespace Leetcode_CSharp_Sample
          */
     public class TwoNumSample
     {
+        /// <summary>
+        /// 第一种方法
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public int[] TwoSum(int[] nums, int target)
         {
             for (int i = 0; i < nums.Length; i++)
@@ -23,7 +31,35 @@ namespace Leetcode_CSharp_Sample
                 }
             }
 
-            return new int[2] {0, 0};
+            throw new ArgumentException("No two sum solution");
+        }
+
+        /// <summary>
+        /// 第二种方法
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public int[] TwoSumSecond(int[] nums, int target)
+        {
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            for (int j = 0; j < nums.Length; j++)
+            {
+                var num = nums[j];
+                dic.TryAdd(num, j);
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                var secNum = target - nums[i];
+                if (dic.ContainsKey(secNum) && dic[secNum] != i)
+                {
+                    return new int[2] {i, dic[secNum]};
+                }
+            }
+
+            throw new ArgumentException("No two sum solution");
         }
     }
 }
